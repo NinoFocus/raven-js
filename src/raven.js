@@ -1946,7 +1946,9 @@ function htmlElementAsString(elem) {
         return '';
     }
 
-    out.push(elem.tagName.toLowerCase());
+    var tagName = elem.tagName.toLowerCase()
+
+    out.push(tagName);
     if (elem.id) {
         out.push('#' + elem.id);
     }
@@ -1966,6 +1968,18 @@ function htmlElementAsString(elem) {
             out.push('[' + key + '="' + attr + '"]');
         }
     }
+
+
+    if (tagName === 'button' || tagName === 'a') {
+        var innerText = elem.innerText
+        if (innerText) {
+            if (innerText.length > 6) {
+                innerText = innerText.slice(0, 6) + '...'
+            }
+            out.push('(' + innerText + ')')
+        }
+    }
+
     return out.join('');
 }
 
